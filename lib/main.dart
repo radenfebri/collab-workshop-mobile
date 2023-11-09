@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_workshop_mobile/controllers/register_controller.dart';
-import 'package:project_workshop_mobile/register_page.dart';
+import 'package:project_workshop_mobile/controllers/authentication.dart'; // Impor kontroler Anda di sini
+import 'package:project_workshop_mobile/views/auth/login_page.dart';
+import 'package:project_workshop_mobile/views/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,68 +11,33 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Start Page'),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Tuku Buku',
+      initialBinding: BindingsBuilder(() {
+        Get.put(AuthenticationController()); // Inisialisasi kontroler
+      }),
+      home: const RootPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final register = Get.put(RegisterController());
+class RootPage extends StatelessWidget {
+  const RootPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Selamat datang di aplikasi Flutter Penjualan Buku!',
-            ),
+    final AuthenticationController authController =
+        Get.find<AuthenticationController>();
 
-            SizedBox(height: 50), // Jarak vertikal antara teks dan tombol
-            ElevatedButton(
-              onPressed: () {
-                // Fungsi yang akan dijalankan saat tombol ditekan
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Register()), // Navigasi ke halaman Register
-                );
-              },
-              child: Text(
-                'Getting Started',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20, // Ukuran teks
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                fixedSize: Size(200, 50), // Atur ukuran tombol (lebar x tinggi)
-                // Tambahan gaya tombol seperti warna latar belakang, bentuk, dll.
-              ),
-            ),
-          ],
-        ),
-      ),
-
-    );
+    return Obx(() {
+      if (authController.isAuthenticated) {
+        return const HomePage();
+      } else {
+        return const LoginPage();
+      }
+    });
   }
 }

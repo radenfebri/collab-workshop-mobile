@@ -32,6 +32,9 @@ dependencies:
   date_field: ^3.0.5 # Pastikan versi terbaru
   get: ^4.6.1           #GET LIB
   get_storage: ^2.0.3  #GET LIB
+  provider: ^6.0.5
+  http: ^1.1.0
+  google_fonts: ^6.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -47,7 +50,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  # flutter_lints: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
