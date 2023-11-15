@@ -123,12 +123,6 @@ class AuthenticationController extends GetxController {
         isLoading.value = false;
         token.value = json.decode(response.body)['token'];
         box.write('token', token.value);
-        final userDataResponse = await http.get(
-          Uri.parse(url + 'get_user_data'),
-          headers: {
-            'Authorization': 'Bearer ${token.value}',
-          },
-        );
         Get.snackbar(
           'Success',
           'Login was successful!',
@@ -136,6 +130,7 @@ class AuthenticationController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
+        getDataUser();
         Get.offAll(() => const HomePage());
       } else {
         isLoading.value = false;
@@ -177,7 +172,6 @@ class AuthenticationController extends GetxController {
             colorText: Colors.white,
           );
         }
-
         debugPrint(json.encode(json.decode(response.body)));
       }
     } catch (e) {
@@ -189,21 +183,21 @@ class AuthenticationController extends GetxController {
   Future getDataUser() async {
     try {
       isLoading.value = true;
-      final token = box.read('token');
+      final set_token = box.read('token');
 
       final userDataResponse = await http.get(
         Uri.parse(url + 'auth/show'),
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $set_token',
         },
       );
 
       if (userDataResponse.statusCode == 200) {
         final userData = json.decode(userDataResponse.body);
-        final id = userData['id'];
-        final name = userData['name'];
-        final email = userData['email'];
-        final username = userData['username'];
+        final id = userData['user']['id'];
+        final name = userData['user']['name'];
+        final email = userData['user']['email'];
+        final username = userData['user']['username'];
 
         final newUser = User(
           id: id,
@@ -238,12 +232,12 @@ class AuthenticationController extends GetxController {
   Future logout() async {
     try {
       isLoading.value = true;
-      final token = box.read('token');
+      final set_token = box.read('token');
 
       final response = await http.post(
         Uri.parse(url + 'auth/logout'),
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer $set_token',
         },
       );
 
@@ -254,9 +248,11 @@ class AuthenticationController extends GetxController {
           val.name.value = '';
           val.email.value = '';
           val.username.value = '';
+          print(response);
         });
         isLoading.value = false;
 
+        token.value = '';
         Get.offAll(() => const LoginPage());
       } else {
         isLoading.value = false;
