@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:project_workshop_mobile/controllers/authentication.dart'; // Impor kontroler Anda di sini
-import 'package:project_workshop_mobile/views/auth/login_page.dart';
-import 'package:project_workshop_mobile/views/home_page.dart';
+import 'package:jual_buku/models/user_model.dart';
+import 'package:jual_buku/pages/auth/login_page.dart';
+import 'package:jual_buku/pages/auth/register_page.dart';
+import 'package:jual_buku/pages/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+    return MaterialApp(
       title: 'Tuku Buku',
-      initialBinding: BindingsBuilder(() {
-        Get.put(AuthenticationController()); // Inisialisasi kontroler
-      }),
-      home: const RootPage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/home') {
+          final UserModel user = settings.arguments as UserModel;
+          return MaterialPageRoute(
+            builder: (context) => HomePage(user: user),
+          );
+        }
+        return null;
+      },
     );
-  }
-}
-
-class RootPage extends StatelessWidget {
-  const RootPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final AuthenticationController authController =
-        Get.find<AuthenticationController>();
-
-    return Obx(() {
-      if (authController.isAuthenticated) {
-        return const HomePage();
-      } else {
-        return const LoginPage();
-      }
-    });
   }
 }
