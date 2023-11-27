@@ -31,7 +31,7 @@ class BukuController {
           var buku = Buku.fromJson(item);
           bukuList.add(buku);
         }
-
+        
         return bukuList;
       } else {
         throw Exception('Failed to get book list');

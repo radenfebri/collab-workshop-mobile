@@ -35,7 +35,7 @@ class Buku {
       sellingPrice: json['selling_price'],
       cover: json['cover'],
       qty: json['qty'],
-      popular: json['popular'],
+      popular: int.parse(json['popular']),
       kategori: json['kategori'],
       kategoriBuku: KategoriBuku.fromJson(json['kategoribuku']),
     );
