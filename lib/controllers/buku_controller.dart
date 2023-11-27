@@ -1,18 +1,18 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:jual_buku/models/buku_model.dart';
+import 'package:jual_buku/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BukuController {
-  static const String baseUrl = 'http://127.0.0.1:8000/api/buku';
+  static String url = baseUrl + '/buku';
 
   Future<List<Buku>> getBukuList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
     if (token != null) {
-      var url = '$baseUrl';
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
@@ -46,14 +46,13 @@ class BukuController {
     String? token = prefs.getString('token');
 
     if (token != null) {
-      var url = '$baseUrl/$id';
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
       };
 
       var response = await http.get(
-        Uri.parse(url),
+        Uri.parse('$url/$id'),
         headers: headers,
       );
 

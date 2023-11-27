@@ -1,6 +1,8 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:jual_buku/models/transaksi_model.dart';
+import 'package:jual_buku/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionController {
@@ -8,7 +10,7 @@ class TransactionController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
-    final url = 'http://127.0.0.1:8000/api/pesanan';
+    final url = baseUrl + '/pesanan';
 
     final response = await http.get(
       Uri.parse(url),

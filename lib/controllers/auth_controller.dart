@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:jual_buku/models/user_model.dart';
+import 'package:jual_buku/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {
-  static const String baseUrl = 'http://127.0.0.1:8000/api/auth';
+  static String url = baseUrl + '/auth';
 
   Future<UserModel> login({
     required String username,
     required String password,
   }) async {
-    var url = '$baseUrl/login';
     var headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({
       'username': username,
@@ -20,7 +20,7 @@ class AuthController {
     });
 
     var response = await http.post(
-      Uri.parse(url),
+      Uri.parse('$url/login'),
       headers: headers,
       body: body,
     );
@@ -43,10 +43,9 @@ class AuthController {
     }
   }
 
-  Future<void> register(
-      String name, String username, String email, String password) async {
+  Future<void> register(String name, String username, String email, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/register'),
+      Uri.parse('$url/register'),
       body: {
         'name': name,
         'username': username,
@@ -65,14 +64,13 @@ class AuthController {
     String? token = prefs.getString('token');
 
     if (token != null) {
-      var url = '$baseUrl/logout';
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
       };
 
       var response = await http.post(
-        Uri.parse(url),
+        Uri.parse('$url/logout'),
         headers: headers,
       );
 
@@ -88,7 +86,7 @@ class AuthController {
     Navigator.pushNamedAndRemoveUntil(
       context,
       '/login',
-      (route) => false,
+          (route) => false,
     );
   }
 }
