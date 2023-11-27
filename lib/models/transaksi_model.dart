@@ -32,7 +32,7 @@ class Transaksi {
       namaBuku: json['name_buku'],
       name: json['name'],
       email: json['email'],
-      status: json['status'],
+      status: int.parse(json['status']),
       metode: json['nama_bank'],
       noRek: json['no_rek'],
       atasNama: json['atas_nama'],
