@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jual_buku/controllers/auth_controller.dart';
 import 'package:jual_buku/models/user_model.dart';
+import 'package:jual_buku/pages/about_page.dart';
 import 'package:jual_buku/pages/buku/buku_page.dart';
+import 'package:jual_buku/pages/faq_page.dart';
 import 'package:jual_buku/pages/histori-transaksi/histori_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -95,6 +97,26 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HistoriTransaksiPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.question_answer_outlined),
+              title: Text('FAQ'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FaqPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info_outline),
+              title: Text('About'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutPage()),
                 );
               },
             ),
