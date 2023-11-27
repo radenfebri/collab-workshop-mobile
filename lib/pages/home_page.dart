@@ -3,6 +3,7 @@ import 'package:jual_buku/controllers/auth_controller.dart';
 import 'package:jual_buku/models/user_model.dart';
 import 'package:jual_buku/pages/buku/buku_page.dart';
 import 'package:jual_buku/pages/histori-transaksi/histori_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
@@ -17,18 +18,9 @@ class _HomePageState extends State<HomePage> {
   final AuthController authController = AuthController();
 
   void _logout(BuildContext context) async {
-    if (!mounted) {
-      return; // Widget sudah tidak aktif, hentikan proses logout
-    }
-
-    try {
-      await authController.logout(
-          context); // Panggil metode logout dari AuthController dengan meneruskan context
-    } catch (e) {
-      print('Failed to logout: $e');
-      // Tampilkan pesan atau lakukan tindakan jika gagal logout
-      return;
-    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Remove token from SharedPreferences
+    prefs.clear();
 
     Navigator.pushNamedAndRemoveUntil(
       context,

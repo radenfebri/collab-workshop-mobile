@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jual_buku/models/user_model.dart';
 import 'package:jual_buku/services/api_service.dart';
@@ -57,36 +56,5 @@ class AuthController {
     if (response.statusCode != 201) {
       throw Exception('Registration failed');
     }
-  }
-
-  Future<void> logout(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-
-    if (token != null) {
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token'
-      };
-
-      var response = await http.post(
-        Uri.parse('$url/logout'),
-        headers: headers,
-      );
-
-      if (response.statusCode != 200) {
-        print('Failed to logout');
-        throw Exception('Failed to logout. Please try again.');
-      }
-    }
-
-    // Remove token from SharedPreferences
-    await prefs.remove('token');
-
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      '/login',
-          (route) => false,
-    );
   }
 }
