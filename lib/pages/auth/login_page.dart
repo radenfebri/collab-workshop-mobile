@@ -50,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           MaterialPageRoute(builder: (context) => HomePage(user: user)),
         );
       },
+      width: MediaQuery.of(context).size.width * 0.7,
     )..show();
   }
 
@@ -146,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
+                  primary: Color(0xFF177DFF),
                   padding: EdgeInsets.symmetric(horizontal: 48.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -160,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                   'Belum punya akun? Daftar disini',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
-                      color: Colors.blue,
+                      color: Color(0xFF177DFF),
                     ),
                   ),
                 ),

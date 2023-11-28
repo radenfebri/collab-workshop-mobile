@@ -49,8 +49,8 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               child: Text('Logout'),
               onPressed: () {
-                Navigator.of(context).pop(); // Tutup dialog konfirmasi
-                _logout(context); // Panggil fungsi logout
+                Navigator.of(context).pop();
+                _logout(context);
               },
             ),
           ],
