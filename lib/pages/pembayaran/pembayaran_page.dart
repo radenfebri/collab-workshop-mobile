@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jual_buku/controllers/bank_controller.dart';
+import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/bank_model.dart';
 import 'package:jual_buku/models/buku_model.dart';
+import 'package:jual_buku/pages/histori-transaksi/histori_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PembayaranPage extends StatefulWidget {
   final Buku buku;
@@ -110,9 +112,24 @@ class _PembayaranPageState extends State<PembayaranPage> {
 
   void lanjutPembayaran() {
     if (token != null && selectedBank != null) {
-      // Lakukan tindakan yang sesuai ketika tombol "Lanjutkan Pembayaran" ditekan
-      // Anda dapat menggunakan nilai 'selectedBank' di sini
-      print('Metode Pembayaran yang dipilih: ${selectedBank!.namaBank}');
+      TransactionController transaction = new TransactionController();
+      transaction
+          .storeTransaction(widget.buku.id, selectedBank!.id)
+          .then((data) => {
+                if (data.statusCode == 200)
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HistoriTransaksiPage()),
+                    )
+                  }
+                else
+                  {
+                    print(data.body)
+                    //TODO Set Alert Gagal Checkout
+                  }
+              });
     }
   }
 }
