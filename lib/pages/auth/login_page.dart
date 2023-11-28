@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/auth_controller.dart';
 import 'package:jual_buku/models/user_model.dart';
 import 'package:jual_buku/pages/auth/register_page.dart';
 import 'package:jual_buku/pages/home_page.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final AuthController _authController = AuthController();
+  String _errorMessage = '';
 
   void _login() async {
     String username = _usernameController.text;
@@ -24,29 +27,30 @@ class _LoginPageState extends State<LoginPage> {
         password: password,
       );
 
-      // Navigasi ke halaman beranda dengan mengirimkan data user
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(user: user),
-        ),
-      );
+      _showSuccessDialog(context, user);
     } catch (e) {
-      // Menampilkan pesan kesalahan jika gagal login
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Login Error'),
-          content: Text(e.toString()),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
-            ),
-          ],
-        ),
-      );
+      setState(() {
+        _errorMessage = e.toString();
+      });
     }
+  }
+
+  void _showSuccessDialog(BuildContext context, UserModel user) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.success,
+      animType: AnimType.bottomSlide,
+      title: 'Login Successful',
+      desc: 'You have successfully logged in.',
+      btnOkText: 'OK',
+      btnOkOnPress: () {
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage(user: user)),
+        );
+      },
+    )..show();
   }
 
   void _goToRegisterPage() {
@@ -56,11 +60,33 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _buildErrorMessage() {
+    if (_errorMessage.isNotEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Text(
+          _errorMessage,
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 14.0,
+          ),
+        ),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Inisialisasi atau konfigurasi awal
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Colors.white, // Mengatur warna latar belakang halaman menjadi putih
+      backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(24.0),
@@ -68,7 +94,10 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                  'assets/images/logo.png'), // Menambahkan gambar logo login
+                'assets/images/logo.png',
+                width: 150,
+                height: 150,
+              ),
               SizedBox(height: 32.0),
               TextField(
                 controller: _usernameController,
@@ -79,6 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
+                  errorText: _errorMessage.isNotEmpty &&
+                          _errorMessage.contains('invalid_username')
+                      ? 'Username tidak valid'
+                      : null,
                 ),
               ),
               SizedBox(height: 16.0),
@@ -91,18 +124,29 @@ class _LoginPageState extends State<LoginPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
+                  errorText: _errorMessage.isNotEmpty &&
+                          _errorMessage.contains('invalid_password')
+                      ? 'Password tidak valid'
+                      : null,
                 ),
                 obscureText: true,
               ),
+              _buildErrorMessage(),
               SizedBox(height: 24.0),
               ElevatedButton(
                 onPressed: _login,
-                child: Text('Login'),
+                child: Text(
+                  'Login',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
-                  primary:
-                      Colors.blue, // Mengatur warna latar tombol menjadi biru
-                  onPrimary: Colors
-                      .white, // Mengatur warna teks pada tombol menjadi putih
+                  primary: Colors.blue,
                   padding: EdgeInsets.symmetric(horizontal: 48.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -114,8 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: _goToRegisterPage,
                 child: Text(
                   'Belum punya akun? Daftar disini',
-                  style: TextStyle(
-                      color: Colors.blue), // Mengatur warna teks menjadi biru
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
                 ),
               ),
             ],

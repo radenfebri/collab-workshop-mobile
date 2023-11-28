@@ -37,12 +37,15 @@ class AuthController {
 
       return user;
     } else {
-      print("Gagal login");
-      throw Exception("Gagal login. Silakan coba lagi.");
+      var error = jsonDecode(response.body);
+      var errorMessage = error['message'];
+      print("$errorMessage");
+      throw ("$errorMessage");
     }
   }
 
-  Future<void> register(String name, String username, String email, String password) async {
+  Future<void> register(
+      String name, String username, String email, String password) async {
     final response = await http.post(
       Uri.parse('$url/register'),
       body: {
