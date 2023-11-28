@@ -52,6 +52,13 @@ class DetailBukuPage extends StatelessWidget {
                   color: Colors.grey[600],
                 ),
               ),
+              Text(
+                'Description: ${buku.description.toString()}',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.grey[600],
+                ),
+              ),
               SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
