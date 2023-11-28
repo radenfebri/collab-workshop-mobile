@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/pembayaran/pembayaran_page.dart';
+import 'package:jual_buku/services/currency_format.dart';
 
 class DetailBukuPage extends StatelessWidget {
   final Buku buku;
+  int decimalDigit = 2;
 
   DetailBukuPage({required this.buku});
 
@@ -58,8 +60,10 @@ class DetailBukuPage extends StatelessWidget {
               SizedBox(height: 8.0),
               Text(
                 buku.sellingPrice != null
-                    ? 'Harga: Rp. ${buku.sellingPrice!}'
-                    : 'Harga: Rp. ${buku.originalPrice}',
+                    ? CurrencyFormat.convertToIdr(
+                        int.parse(buku.sellingPrice!), decimalDigit)
+                    : CurrencyFormat.convertToIdr(
+                        int.parse(buku.originalPrice), decimalDigit),
                 style: GoogleFonts.poppins(
                   fontSize: 16.0,
                   color: Colors.grey[600],

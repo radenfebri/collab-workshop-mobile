@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/transaksi_model.dart';
+import 'package:jual_buku/services/currency_format.dart';
 
 class HistoriTransaksiPage extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class HistoriTransaksiPage extends StatefulWidget {
 class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
   TransactionController _transactionController = TransactionController();
   List<Transaksi> _transactions = [];
+  int decimalDigit = 2;
 
   @override
   void initState() {
@@ -74,7 +76,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                   children: [
                     Expanded(
                       child: SelectableText(
-                        '${transaksi.totalPrice}',
+                        CurrencyFormat.convertToIdr(
+                            int.parse(transaksi.totalPrice), decimalDigit),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -180,7 +183,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Total Harga: ${transaksi.totalPrice}',
+                    'Total Harga: ${CurrencyFormat.convertToIdr(int.parse(transaksi.totalPrice), decimalDigit)}',
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
