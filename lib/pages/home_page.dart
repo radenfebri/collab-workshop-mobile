@@ -62,73 +62,152 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
       body: Center(
-        child: Text(
-          'Welcome to the Home Page!',
-          style: TextStyle(fontSize: 24.0),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            UserAccountsDrawerHeader(
-              accountName: Text(widget.user.name ?? ''),
-              accountEmail: Text(widget.user.email ?? ''),
-            ),
-            ListTile(
-              leading: Icon(Icons.search),
-              title: Text('Cari Buku'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BukuPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.history),
-              title: Text('Histori Transaksi'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HistoriTransaksiPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.question_answer_outlined),
-              title: Text('FAQ'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FaqPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text('About'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                _showLogoutConfirmationDialog(context);
-              },
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              padding: EdgeInsets.all(16.0),
+              mainAxisSpacing: 16.0,
+              crossAxisSpacing: 16.0,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BukuPage()),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.search, size: 48.0),
+                        SizedBox(height: 8.0),
+                        Text('Cari Buku'),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HistoriTransaksiPage()),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.history, size: 48.0),
+                        SizedBox(height: 8.0),
+                        Text('Histori Transaksi'),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FaqPage()),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.question_answer_outlined, size: 48.0),
+                        SizedBox(height: 8.0),
+                        Text('FAQ'),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AboutPage()),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.info_outline, size: 48.0),
+                        SizedBox(height: 8.0),
+                        Text('About'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
+      ),
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: GestureDetector(
+              onTap: () {
+                // Tampilkan dropdown detail pengguna
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Detail Pengguna'),
+                      content: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Nama: ${widget.user.name ?? ''}'),
+                          Text('Email: ${widget.user.email ?? ''}'),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text('Logout'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            _showLogoutConfirmationDialog(context);
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Tutup'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/profile.jpg'),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

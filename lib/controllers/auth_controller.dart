@@ -56,8 +56,15 @@ class AuthController {
       },
     );
 
-    if (response.statusCode != 201) {
-      throw Exception('Registration failed');
+    if (response.statusCode == 201) {
+      var data = jsonDecode(response.body);
+      var message = data['message'];
+      print(message);
+    } else {
+      var error = jsonDecode(response.body);
+      var errorMessage = error['message'];
+      print(errorMessage);
+      throw (errorMessage);
     }
   }
 }

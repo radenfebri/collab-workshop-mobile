@@ -40,8 +40,8 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       dialogType: DialogType.success,
       animType: AnimType.bottomSlide,
-      title: 'Login Successful',
-      desc: 'You have successfully logged in.',
+      title: 'Login Berhasil',
+      desc: 'Kamu Berhasil login.',
       btnOkText: 'OK',
       btnOkOnPress: () {
         Navigator.pushReplacement(
@@ -78,12 +78,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    // Inisialisasi atau konfigurasi awal
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -109,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   errorText: _errorMessage.isNotEmpty &&
-                      _errorMessage.contains('invalid_username')
+                          _errorMessage.contains('invalid_username')
                       ? 'Username tidak valid'
                       : null,
                 ),
@@ -125,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   errorText: _errorMessage.isNotEmpty &&
-                      _errorMessage.contains('invalid_password')
+                          _errorMessage.contains('invalid_password')
                       ? 'Password tidak valid'
                       : null,
                 ),
@@ -147,10 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF177DFF),
-                  padding: EdgeInsets.symmetric(horizontal: 48.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 48.0, vertical: 12.0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(24.0),
                   ),
+                  elevation: 4,
+                  shadowColor: Colors.black54,
                 ),
               ),
               SizedBox(height: 16.0),
