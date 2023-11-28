@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/pembayaran/pembayaran_page.dart';
 
@@ -9,6 +10,8 @@ class DetailBukuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isStockAvailable = int.parse(buku.qty) > 0;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail Buku'),
@@ -19,17 +22,34 @@ class DetailBukuPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Image.network(
-                  buku.cover,
-                  fit: BoxFit.cover,
+              Align(
+                alignment: Alignment.center,
+                child: Container(
                   height: 200.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      buku.cover,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 16.0),
               Text(
                 buku.name,
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -39,7 +59,7 @@ class DetailBukuPage extends StatelessWidget {
                 buku.sellingPrice != null
                     ? 'Harga: Rp. ${buku.sellingPrice!}'
                     : 'Harga: Rp. ${buku.originalPrice}',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 16.0,
                   color: Colors.grey[600],
                 ),
@@ -47,29 +67,49 @@ class DetailBukuPage extends StatelessWidget {
               SizedBox(height: 8.0),
               Text(
                 'Tersedia: ${buku.qty.toString()}',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 16.0,
                   color: Colors.grey[600],
                 ),
               ),
+              SizedBox(height: 8.0),
               Text(
-                'Description: ${buku.description.toString()}',
-                style: TextStyle(
+                'Deskripsi:',
+                style: GoogleFonts.poppins(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 4.0),
+              Text(
+                buku.description.toString(),
+                style: GoogleFonts.poppins(
                   fontSize: 16.0,
                   color: Colors.grey[600],
                 ),
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PembayaranPage(buku: buku),
-                    ),
-                  );
-                },
-                child: Text('Lanjut ke Detail Pembayaran'),
+                onPressed: isStockAvailable
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PembayaranPage(
+                              buku: buku,
+                            ),
+                          ),
+                        );
+                      }
+                    : null,
+                child: Text('Lanjut Pembayaran'),
+                style: ElevatedButton.styleFrom(
+                  textStyle: GoogleFonts.poppins(fontSize: 16.0),
+                  onSurface: isStockAvailable ? null : Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
               ),
             ],
           ),

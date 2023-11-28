@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:jual_buku/controllers/buku_controller.dart';
 import 'package:jual_buku/models/buku_model.dart';
@@ -80,17 +81,22 @@ class BukuCard extends StatelessWidget {
       elevation: 2.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: GestureDetector(
-        onTap: () => navigateToDetailPage(
-            context), // Navigasi ke halaman detail saat diklik
+        onTap: () => navigateToDetailPage(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            Container(
+              height: 140.0,
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
-                child: Image.network(
-                  buku.cover,
-                  fit: BoxFit.cover,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Image.network(
+                    buku.cover,
+                    fit: BoxFit.cover,
+                    width: 120.0,
+                    height: 120.0,
+                  ),
                 ),
               ),
             ),
@@ -103,7 +109,7 @@ class BukuCard extends StatelessWidget {
                     buku.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -113,14 +119,14 @@ class BukuCard extends StatelessWidget {
                     buku.sellingPrice != null
                         ? 'Rp. ${buku.sellingPrice!}'
                         : 'Rp. ${buku.originalPrice}',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 12.0,
                       color: Colors.grey[600],
                     ),
                   ),
                   Text(
                     'Tersedia: ${buku.qty.toString()}',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 12.0,
                       color: Colors.grey[600],
                     ),
