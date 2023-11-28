@@ -1,10 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/auth_controller.dart';
 import 'package:jual_buku/models/user_model.dart';
 import 'package:jual_buku/pages/auth/register_page.dart';
 import 'package:jual_buku/pages/home_page.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -44,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
       desc: 'You have successfully logged in.',
       btnOkText: 'OK',
       btnOkOnPress: () {
-        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomePage(user: user)),
@@ -109,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   errorText: _errorMessage.isNotEmpty &&
-                          _errorMessage.contains('invalid_username')
+                      _errorMessage.contains('invalid_username')
                       ? 'Username tidak valid'
                       : null,
                 ),
@@ -125,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   errorText: _errorMessage.isNotEmpty &&
-                          _errorMessage.contains('invalid_password')
+                      _errorMessage.contains('invalid_password')
                       ? 'Password tidak valid'
                       : null,
                 ),
