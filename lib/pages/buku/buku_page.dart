@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:jual_buku/controllers/buku_controller.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/buku/detail-buku.dart';
-import 'package:intl/intl.dart';
 
 class BukuPage extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _BukuPageState extends State<BukuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jual Buku Online'),
+        title: Text('List Buku'),
       ),
       body: FutureBuilder<List<Buku>>(
         future: bukuListFuture,

@@ -83,9 +83,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.search, size: 48.0, color: Colors.white),
+                      Icon(Icons.library_books,
+                          size: 48.0, color: Colors.white),
                       SizedBox(height: 8.0),
-                      Text('Cari Buku', style: TextStyle(color: Colors.white)),
+                      Text('List Buku', style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
