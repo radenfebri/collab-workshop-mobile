@@ -21,25 +21,20 @@ class _HomePageState extends State<HomePage> {
 
   void _logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Remove token from SharedPreferences
+    // Menghapus token dari SharedPreferences
     prefs.clear();
 
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      '/login',
-      (route) => false,
-    );
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
-    await showDialog<void>(
+    await showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Konfirmasi Logout'),
           content: Text('Apakah Anda yakin ingin logout?'),
-          actions: <Widget>[
+          actions: [
             TextButton(
               child: Text('Batal'),
               onPressed: () {
@@ -63,107 +58,117 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              padding: EdgeInsets.all(16.0),
-              mainAxisSpacing: 16.0,
-              crossAxisSpacing: 16.0,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BukuPage()),
-                    );
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.search, size: 48.0),
-                        SizedBox(height: 8.0),
-                        Text('Cari Buku'),
-                      ],
-                    ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            padding: EdgeInsets.all(16.0),
+            mainAxisSpacing: 16.0,
+            crossAxisSpacing: 16.0,
+            childAspectRatio: 0.8,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BukuPage()),
+                  );
+                },
+                child: Card(
+                  color: Colors.blue[400],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.search, size: 48.0, color: Colors.white),
+                      SizedBox(height: 8.0),
+                      Text('Cari Buku', style: TextStyle(color: Colors.white)),
+                    ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HistoriTransaksiPage()),
-                    );
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.history, size: 48.0),
-                        SizedBox(height: 8.0),
-                        Text('Histori Transaksi'),
-                      ],
-                    ),
+              ),
+              // Card lainnya
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HistoriTransaksiPage()),
+                  );
+                },
+                child: Card(
+                  color: Colors.orange[400],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.history, size: 48.0, color: Colors.white),
+                      SizedBox(height: 8.0),
+                      Text('Histori Transaksi',
+                          style: TextStyle(color: Colors.white)),
+                    ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => FaqPage()),
-                    );
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.question_answer_outlined, size: 48.0),
-                        SizedBox(height: 8.0),
-                        Text('FAQ'),
-                      ],
-                    ),
+              ),
+              // Card lainnya
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FaqPage()),
+                  );
+                },
+                child: Card(
+                  color: Colors.green[400],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.question_answer_outlined,
+                          size: 48.0, color: Colors.white),
+                      SizedBox(height: 8.0),
+                      Text('FAQ', style: TextStyle(color: Colors.white)),
+                    ],
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AboutPage()),
-                    );
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.info_outline, size: 48.0),
-                        SizedBox(height: 8.0),
-                        Text('About'),
-                      ],
-                    ),
+              ),
+              // Card lainnya
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AboutPage()),
+                  );
+                },
+                child: Card(
+                  color: Colors.purple[400],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.info_outline, size: 48.0, color: Colors.white),
+                      SizedBox(height: 8.0),
+                      Text('About', style: TextStyle(color: Colors.white)),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
+        backgroundColor: Color(0xFF177DFF),
+        automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 16.0),
