@@ -14,6 +14,7 @@ class DetailBukuPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF177DFF),
         title: Text('Detail Buku'),
       ),
       body: SingleChildScrollView(
@@ -90,6 +91,19 @@ class DetailBukuPage extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF177DFF),
+                  textStyle: GoogleFonts.poppins(
+                      fontSize: 16.0, fontWeight: FontWeight.bold),
+                  onSurface: isStockAvailable ? null : Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 14.0, horizontal: 24.0),
+                  elevation: isStockAvailable ? 4.0 : 0.0,
+                  shadowColor: Colors.black.withOpacity(0.3),
+                ),
                 onPressed: isStockAvailable
                     ? () {
                         Navigator.push(
@@ -102,13 +116,13 @@ class DetailBukuPage extends StatelessWidget {
                         );
                       }
                     : null,
-                child: Text('Lanjut Pembayaran'),
-                style: ElevatedButton.styleFrom(
-                  textStyle: GoogleFonts.poppins(fontSize: 16.0),
-                  onSurface: isStockAvailable ? null : Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.payment, size: 24.0),
+                    SizedBox(width: 8.0),
+                    Text('Lanjut Pembayaran'),
+                  ],
                 ),
               ),
             ],

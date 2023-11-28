@@ -25,6 +25,7 @@ class _BukuPageState extends State<BukuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF177DFF),
         title: Text('List Buku'),
       ),
       body: FutureBuilder<List<Buku>>(

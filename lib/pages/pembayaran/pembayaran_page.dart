@@ -48,6 +48,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF177DFF),
         title: Text('Pembayaran'),
       ),
       body: Column(
@@ -125,10 +126,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
                     )
                   }
                 else
-                  {
-                    print(data.body)
-                    //TODO Set Alert Gagal Checkout
-                  }
+                  {print(data.body)}
               });
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/auth_controller.dart';
 import 'package:jual_buku/models/user_model.dart';
 import 'package:jual_buku/pages/about_page.dart';
@@ -86,7 +87,12 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.library_books,
                           size: 48.0, color: Colors.white),
                       SizedBox(height: 8.0),
-                      Text('List Buku', style: TextStyle(color: Colors.white)),
+                      Text('List Buku',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                 ),
@@ -111,7 +117,11 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.history, size: 48.0, color: Colors.white),
                       SizedBox(height: 8.0),
                       Text('Histori Transaksi',
-                          style: TextStyle(color: Colors.white)),
+                          style: GoogleFonts.poppins(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                 ),
@@ -135,7 +145,12 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.question_answer_outlined,
                           size: 48.0, color: Colors.white),
                       SizedBox(height: 8.0),
-                      Text('FAQ', style: TextStyle(color: Colors.white)),
+                      Text('FAQ',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                 ),
@@ -158,7 +173,12 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Icon(Icons.info_outline, size: 48.0, color: Colors.white),
                       SizedBox(height: 8.0),
-                      Text('About', style: TextStyle(color: Colors.white)),
+                      Text('About',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                 ),
@@ -185,8 +205,16 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Nama: ${widget.user.name ?? ''}'),
-                          Text('Email: ${widget.user.email ?? ''}'),
+                          Text('Nama: ${widget.user.name ?? ''}',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text('Email: ${widget.user.email ?? ''}',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              )),
                         ],
                       ),
                       actions: [
