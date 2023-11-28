@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f25971bb-bf43-4edd-9d06-429b5d1f9847" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/buku/buku_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/buku/buku_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/buku/detail-buku.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/buku/detail-buku.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/histori-transaksi/histori_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/histori-transaksi/histori_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/pembayaran/pembayaran_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/pembayaran/pembayaran_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701173839081</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fix currency">
+      <created>1701176599719</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1701176599719</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -181,7 +191,8 @@
     <MESSAGE value="fix delete transaction" />
     <MESSAGE value="add description" />
     <MESSAGE value="add currency" />
-    <option name="LAST_COMMIT_MESSAGE" value="add currency" />
+    <MESSAGE value="fix currency" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix currency" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

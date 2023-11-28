@@ -5,6 +5,7 @@ import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/bank_model.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/histori-transaksi/histori_page.dart';
+import 'package:jual_buku/services/currency_format.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PembayaranPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
   List<MetodePembayaran> banks = [];
   MetodePembayaran? selectedBank;
   String? token;
+  int decimalDigit = 0;
 
   @override
   void initState() {
@@ -67,8 +69,8 @@ class _PembayaranPageState extends State<PembayaranPage> {
             title: Text(widget.buku.name),
             subtitle: Text(
               widget.buku.sellingPrice != null
-                  ? 'Harga: Rp. ${widget.buku.sellingPrice!}'
-                  : 'Harga: Rp. ${widget.buku.originalPrice}',
+                  ? 'Harga: ${CurrencyFormat.convertToIdr(int.parse(widget.buku.sellingPrice!), decimalDigit)}'
+                  : 'Harga: ${CurrencyFormat.convertToIdr(int.parse(widget.buku.originalPrice), decimalDigit)}',
             ),
           ),
           Divider(),

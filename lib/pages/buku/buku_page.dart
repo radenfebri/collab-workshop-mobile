@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:jual_buku/controllers/buku_controller.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/buku/detail-buku.dart';
+import 'package:jual_buku/services/currency_format.dart';
 
 class BukuPage extends StatefulWidget {
   @override
@@ -67,6 +68,7 @@ class _BukuPageState extends State<BukuPage> {
 
 class BukuCard extends StatelessWidget {
   final Buku buku;
+  int decimalDigit = 0;
 
   BukuCard({required this.buku});
 
@@ -118,8 +120,10 @@ class BukuCard extends StatelessWidget {
                   SizedBox(height: 4.0),
                   Text(
                     buku.sellingPrice != null
-                        ? 'Rp. ${buku.sellingPrice!}'
-                        : 'Rp. ${buku.originalPrice}',
+                        ? CurrencyFormat.convertToIdr(
+                            int.parse(buku.sellingPrice!), decimalDigit)
+                        : CurrencyFormat.convertToIdr(
+                            int.parse(buku.originalPrice), decimalDigit),
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey[600],
