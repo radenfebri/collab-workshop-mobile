@@ -59,34 +59,67 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text('Login'),
-            ),
-            TextButton(
-              onPressed: _goToRegisterPage,
-              child: Text('Belum punya akun? Daftar disini'),
-            ),
-          ],
+      backgroundColor:
+          Colors.white, // Mengatur warna latar belakang halaman menjadi putih
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                  'assets/images/logo.png'), // Menambahkan gambar logo login
+              SizedBox(height: 32.0),
+              TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                obscureText: true,
+              ),
+              SizedBox(height: 24.0),
+              ElevatedButton(
+                onPressed: _login,
+                child: Text('Login'),
+                style: ElevatedButton.styleFrom(
+                  primary:
+                      Colors.blue, // Mengatur warna latar tombol menjadi biru
+                  onPrimary: Colors
+                      .white, // Mengatur warna teks pada tombol menjadi putih
+                  padding: EdgeInsets.symmetric(horizontal: 48.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              TextButton(
+                onPressed: _goToRegisterPage,
+                child: Text(
+                  'Belum punya akun? Daftar disini',
+                  style: TextStyle(
+                      color: Colors.blue), // Mengatur warna teks menjadi biru
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
