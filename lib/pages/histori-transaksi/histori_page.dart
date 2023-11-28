@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/transaksi_model.dart';
 import 'package:jual_buku/services/currency_format.dart';
@@ -61,7 +62,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Detail Histori Transaksi'),
+          title: Text('Detail Histori Transaksi', style: GoogleFonts.poppins()),
           content: Container(
             width: MediaQuery.of(context).size.width *
                 0.8, // Lebar dialog menjadi 80% dari lebar layar
@@ -70,7 +71,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Nomor Tracking: ${transaksi.trackingNo}'),
+                Text('Nomor Tracking: ${transaksi.trackingNo}',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 Text('Total Harga:'),
                 Row(
                   children: [
@@ -135,7 +137,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
             if (transaksi.status ==
                 0) // Hanya tampilkan tombol jika status "Diproses"
               ElevatedButton(
-                child: Text('Batalkan'),
+                child: Text('Batalkan', style: GoogleFonts.poppins()),
                 onPressed: () async {
                   Navigator.pop(context);
                   await _transactionController.deleteTransaction(transaksi.id);
@@ -147,7 +149,7 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                 ),
               ),
             ElevatedButton(
-              child: Text('Tutup'),
+              child: Text('Tutup', style: GoogleFonts.poppins()),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -162,7 +164,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Histori Transaksi'),
+        backgroundColor: Color(0xFF177DFF),
+        title: Text('Histori Transaksi', style: GoogleFonts.poppins()),
       ),
       body: ListView.builder(
         itemCount: _transactions.length,
@@ -173,10 +176,11 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
             color: statusColor,
             child: ListTile(
               title: Text(
-                'Nomor Tracking: ${transaksi.trackingNo}',
+                'No Tracking: ${transaksi.trackingNo}',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  fontFamily: GoogleFonts.poppins().fontFamily,
                 ),
               ),
               subtitle: Column(
@@ -184,11 +188,17 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                 children: [
                   Text(
                     'Total Harga: ${CurrencyFormat.convertToIdr(int.parse(transaksi.totalPrice), decimalDigit)}',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                    ),
                   ),
                   Text(
                     'Status Histori: ${getStatusText(transaksi.status)}',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                    ),
                   ),
                 ],
               ),

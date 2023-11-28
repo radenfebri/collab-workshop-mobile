@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/bank_controller.dart';
 import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/bank_model.dart';
@@ -49,7 +50,8 @@ class _PembayaranPageState extends State<PembayaranPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF177DFF),
-        title: Text('Pembayaran'),
+        title: Text('Pembayaran',
+            style: GoogleFonts.poppins()), // Menggunakan Google Fonts
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +86,8 @@ class _PembayaranPageState extends State<PembayaranPage> {
               itemBuilder: (context, index) {
                 MetodePembayaran bank = banks[index];
                 return ListTile(
-                  title: Text('Nama Bank: ${bank.namaBank}'),
+                  title: Text(' Bank ${bank.namaBank}',
+                      style: GoogleFonts.poppins()),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -104,7 +107,8 @@ class _PembayaranPageState extends State<PembayaranPage> {
           ),
           ElevatedButton(
             onPressed: selectedBank != null ? lanjutPembayaran : null,
-            child: Text('Lanjutkan Pembayaran'),
+            child: Text('Lanjutkan Pembayaran',
+                style: GoogleFonts.poppins()), // Menggunakan Google Fonts
           ),
         ],
       ),

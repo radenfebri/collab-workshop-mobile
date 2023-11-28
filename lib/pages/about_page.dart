@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/about_controller.dart';
 import 'package:jual_buku/models/about_model.dart';
 
@@ -36,7 +37,8 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About'),
+        backgroundColor: Color(0xFF177DFF),
+        title: Text('About', style: GoogleFonts.poppins()),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())

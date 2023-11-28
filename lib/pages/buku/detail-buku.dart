@@ -17,7 +17,7 @@ class DetailBukuPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF177DFF),
-        title: Text('Detail Buku'),
+        title: Text('Detail Buku', style: GoogleFonts.poppins()),
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:jual_buku/controllers/buku_controller.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/buku/detail-buku.dart';
-import 'package:jual_buku/services/currency_format.dart';
 
 class BukuPage extends StatefulWidget {
   @override
@@ -12,6 +12,7 @@ class BukuPage extends StatefulWidget {
 
 class _BukuPageState extends State<BukuPage> {
   final BukuController bukuController = BukuController();
+  final formatter = NumberFormat.simpleCurrency(locale: 'id_ID');
   late Future<List<Buku>> bukuListFuture;
 
   @override
@@ -25,7 +26,7 @@ class _BukuPageState extends State<BukuPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF177DFF),
-        title: Text('List Buku'),
+        title: Text('List Buku', style: GoogleFonts.poppins()),
       ),
       body: FutureBuilder<List<Buku>>(
         future: bukuListFuture,
@@ -36,7 +37,7 @@ class _BukuPageState extends State<BukuPage> {
             );
           } else if (snapshot.hasError) {
             return Center(
-              child: Text('Failed to fetch data'),
+              child: Text('Gagal mengambil data', style: GoogleFonts.poppins()),
             );
           } else if (snapshot.hasData) {
             return GridView.builder(
@@ -54,7 +55,8 @@ class _BukuPageState extends State<BukuPage> {
             );
           } else {
             return Center(
-              child: Text('No data available'),
+              child:
+                  Text('Tidak ada data tersedia', style: GoogleFonts.poppins()),
             );
           }
         },
@@ -65,7 +67,6 @@ class _BukuPageState extends State<BukuPage> {
 
 class BukuCard extends StatelessWidget {
   final Buku buku;
-  int decimalDigit = 0;
 
   BukuCard({required this.buku});
 
@@ -86,17 +87,16 @@ class BukuCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 140.0,
+            Padding(
+              padding: EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 0.0), // Tambahkan padding di atas gambar
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
                 child: Align(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topCenter, // Geser gambar ke bawah
                   child: Image.network(
                     buku.cover,
                     fit: BoxFit.cover,
-                    width: 120.0,
-                    height: 120.0,
+                    height: 100.0, // Atur tinggi gambar sesuai kebutuhan Anda
                   ),
                 ),
               ),
@@ -110,7 +110,7 @@ class BukuCard extends StatelessWidget {
                     buku.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -118,18 +118,16 @@ class BukuCard extends StatelessWidget {
                   SizedBox(height: 4.0),
                   Text(
                     buku.sellingPrice != null
-                        ? CurrencyFormat.convertToIdr(
-                            int.parse(buku.sellingPrice!), decimalDigit)
-                        : CurrencyFormat.convertToIdr(
-                            int.parse(buku.originalPrice), decimalDigit),
-                    style: GoogleFonts.poppins(
+                        ? 'Rp. ${buku.sellingPrice!}'
+                        : 'Rp. ${buku.originalPrice}',
+                    style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey[600],
                     ),
                   ),
                   Text(
                     'Tersedia: ${buku.qty.toString()}',
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey[600],
                     ),

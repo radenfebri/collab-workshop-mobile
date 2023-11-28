@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/faq_controller.dart';
 import 'package:jual_buku/models/faq_model.dart';
 
@@ -36,7 +37,8 @@ class _FaqPageState extends State<FaqPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FAQ'),
+        backgroundColor: Color(0xFF177DFF),
+        title: Text('FAQ', style: GoogleFonts.poppins()),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
