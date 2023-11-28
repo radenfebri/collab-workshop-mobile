@@ -6,7 +6,7 @@ import 'package:jual_buku/services/currency_format.dart';
 
 class DetailBukuPage extends StatelessWidget {
   final Buku buku;
-  int decimalDigit = 2;
+  int decimalDigit = 0;
 
   DetailBukuPage({required this.buku});
 

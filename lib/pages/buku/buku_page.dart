@@ -65,7 +65,7 @@ class _BukuPageState extends State<BukuPage> {
 
 class BukuCard extends StatelessWidget {
   final Buku buku;
-  int decimalDigit = 2;
+  int decimalDigit = 0;
 
   BukuCard({required this.buku});
 

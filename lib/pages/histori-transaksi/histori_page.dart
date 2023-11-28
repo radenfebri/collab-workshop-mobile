@@ -12,7 +12,7 @@ class HistoriTransaksiPage extends StatefulWidget {
 class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
   TransactionController _transactionController = TransactionController();
   List<Transaksi> _transactions = [];
-  int decimalDigit = 2;
+  int decimalDigit = 0;
 
   @override
   void initState() {
