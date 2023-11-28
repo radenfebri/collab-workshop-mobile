@@ -62,11 +62,21 @@ class DetailBukuPage extends StatelessWidget {
                 buku.sellingPrice != null
                     ? CurrencyFormat.convertToIdr(
                         int.parse(buku.sellingPrice!), decimalDigit)
-                    : CurrencyFormat.convertToIdr(
-                        int.parse(buku.originalPrice), decimalDigit),
+                    : '',
+                style: GoogleFonts.poppins(
+                  fontSize: 16.0,
+                  color: Colors.red[600],
+                ),
+              ),
+              Text(
+                CurrencyFormat.convertToIdr(
+                    int.parse(buku.originalPrice), decimalDigit),
                 style: GoogleFonts.poppins(
                   fontSize: 16.0,
                   color: Colors.grey[600],
+                  decoration: buku.sellingPrice != null
+                      ? TextDecoration.lineThrough
+                      : null,
                 ),
               ),
               SizedBox(height: 8.0),

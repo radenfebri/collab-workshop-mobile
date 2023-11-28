@@ -122,11 +122,21 @@ class BukuCard extends StatelessWidget {
                     buku.sellingPrice != null
                         ? CurrencyFormat.convertToIdr(
                             int.parse(buku.sellingPrice!), decimalDigit)
-                        : CurrencyFormat.convertToIdr(
-                            int.parse(buku.originalPrice), decimalDigit),
+                        : '',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.red[600],
+                    ),
+                  ),
+                  Text(
+                    CurrencyFormat.convertToIdr(
+                        int.parse(buku.originalPrice), decimalDigit),
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey[600],
+                      decoration: buku.sellingPrice != null
+                          ? TextDecoration.lineThrough
+                          : null,
                     ),
                   ),
                   Text(
