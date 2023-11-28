@@ -35,11 +35,29 @@ class TransactionController {
     }
   }
 
+  Future<http.Response> storeTransaction(int idBuku, int idMetode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    final response = await http.post(
+      Uri.parse('$baseUrl/checkout'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+      body: jsonEncode({
+        'buku_id': idBuku,
+        'metode': idMetode,
+      }),
+    );
+
+    return response;
+  }
+
   Future<void> deleteTransaction(int idPesanan) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
-    print(idPesanan);
     final response = await http.delete(
       Uri.parse('$baseUrl/pesanan/$idPesanan/delete'),
       headers: {'Authorization': 'Bearer $token'},
