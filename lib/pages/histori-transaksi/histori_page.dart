@@ -135,8 +135,16 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                 child: Text('Batalkan'),
                 onPressed: () {
                   // Tindakan ketika tombol "Batalkan" ditekan
-                  // ...
+                  _transactionController.deleteTransaction(transaksi.id);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HistoriTransaksiPage()),
+                  );
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
               ),
             ElevatedButton(
               child: Text('Tutup'),
