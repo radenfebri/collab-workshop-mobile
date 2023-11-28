@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:jual_buku/controllers/buku_controller.dart';
 import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/buku/detail-buku.dart';
+import 'package:jual_buku/services/currency_format.dart';
 
 class BukuPage extends StatefulWidget {
   @override
@@ -12,7 +12,6 @@ class BukuPage extends StatefulWidget {
 
 class _BukuPageState extends State<BukuPage> {
   final BukuController bukuController = BukuController();
-  final formatter = NumberFormat.simpleCurrency(locale: 'id_ID');
   late Future<List<Buku>> bukuListFuture;
 
   @override
@@ -65,6 +64,7 @@ class _BukuPageState extends State<BukuPage> {
 
 class BukuCard extends StatelessWidget {
   final Buku buku;
+  int decimalDigit = 2;
 
   BukuCard({required this.buku});
 
@@ -117,8 +117,10 @@ class BukuCard extends StatelessWidget {
                   SizedBox(height: 4.0),
                   Text(
                     buku.sellingPrice != null
-                        ? 'Rp. ${buku.sellingPrice!}'
-                        : 'Rp. ${buku.originalPrice}',
+                        ? CurrencyFormat.convertToIdr(
+                            int.parse(buku.sellingPrice!), decimalDigit)
+                        : CurrencyFormat.convertToIdr(
+                            int.parse(buku.originalPrice), decimalDigit),
                     style: GoogleFonts.poppins(
                       fontSize: 12.0,
                       color: Colors.grey[600],
