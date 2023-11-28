@@ -133,14 +133,11 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                 0) // Hanya tampilkan tombol jika status "Diproses"
               ElevatedButton(
                 child: Text('Batalkan'),
-                onPressed: () {
-                  // Tindakan ketika tombol "Batalkan" ditekan
-                  _transactionController.deleteTransaction(transaksi.id);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HistoriTransaksiPage()),
-                  );
+                onPressed: () async {
+                  Navigator.pop(context);
+                  await _transactionController.deleteTransaction(transaksi.id);
+                  await _fetchTransactions();
+                  setState(() {});
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.red,
