@@ -34,4 +34,15 @@ class TransactionController {
           'Gagal mengambil data transaksi. Kode Status: ${response.statusCode}');
     }
   }
+
+  Future<void> deleteTransaction(int idPesanan) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    print(idPesanan);
+    final response = await http.delete(
+      Uri.parse('$baseUrl/pesanan/$idPesanan/delete'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+  }
 }
