@@ -152,7 +152,16 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                         desc:
                             'Apakah Anda yakin ingin membatalkan transaksi ini?',
                         btnCancelText: 'Batal',
-                        btnCancelOnPress: () {},
+                        btnCancelOnPress: () async {
+                          try {
+                            await _transactionController
+                                .deleteTransaction(transaksi.id);
+                            await _fetchTransactions();
+                            setState(() {});
+                          } catch (error) {
+                            print('Error: $error');
+                          }
+                        },
                         btnOkText: 'OK',
                         btnOkOnPress: () async {
                           // Hapus transaksi setelah konfirmasi
