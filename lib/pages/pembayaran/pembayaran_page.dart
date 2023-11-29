@@ -76,42 +76,75 @@ class _PembayaranPageState extends State<PembayaranPage> {
           Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Metode Pembayaran:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: banks.length,
-              itemBuilder: (context, index) {
-                MetodePembayaran bank = banks[index];
-                return ListTile(
-                  title: Text(' Bank ${bank.namaBank}',
-                      style: GoogleFonts.poppins()),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('No. Rekening: ${bank.noRek}'),
-                      Text('Nama Pemilik: ${bank.atasNama}'),
-                    ],
-                  ),
-                  onTap: () {
-                    setState(() {
-                      selectedBank = bank;
-                    });
-                  },
-                  tileColor: selectedBank == bank ? Colors.blue : null,
-                );
-              },
-            ),
-          ),
-          ElevatedButton(
-            onPressed: selectedBank != null ? lanjutPembayaran : null,
-            child: Text('Lanjutkan Pembayaran',
-                style: GoogleFonts.poppins()), // Menggunakan Google Fonts
-          ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Metode Pembayaran:',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: banks.length,
+                        itemBuilder: (context, index) {
+                          MetodePembayaran bank = banks[index];
+                          return ListTile(
+                            title: Text(' Bank ${bank.namaBank}',
+                                style: GoogleFonts.poppins()),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'No. Rek: ${bank.noRek}',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                                Text(
+                                  'Nama: ${bank.atasNama}',
+                                  style: GoogleFonts.poppins(),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              setState(() {
+                                selectedBank = bank;
+                              });
+                            },
+                            tileColor:
+                                selectedBank == bank ? Colors.blue : null,
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xFF177DFF),
+                        textStyle: GoogleFonts.poppins(
+                            fontSize: 16.0, fontWeight: FontWeight.bold),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 24.0),
+                        elevation: 4.0,
+                        shadowColor: Colors.black.withOpacity(0.3),
+                      ),
+                      onPressed: selectedBank != null ? lanjutPembayaran : null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.payment, size: 24.0),
+                          SizedBox(width: 8.0),
+                          Text(
+                            'Lanjutkan Pembayaran',
+                            style: GoogleFonts.poppins(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ])),
         ],
       ),
     );
