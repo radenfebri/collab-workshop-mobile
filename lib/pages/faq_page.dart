@@ -47,25 +47,26 @@ class _FaqPageState extends State<FaqPage> {
               itemCount: faqList.length,
               itemBuilder: (context, index) {
                 var faq = faqList[index];
-                return ExpansionTile(
-                  title: Text(
-                    faq.pertanyaan,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                return Card(
+                  elevation: 2.0,
+                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: ExpansionTile(
+                    title: Text(
+                      faq.pertanyaan,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          faq.jawaban,
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ),
+                    ],
                   ),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8.0,
-                      ),
-                      child: Text(
-                        faq.jawaban,
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                    ),
-                  ],
                 );
               },
             ),
