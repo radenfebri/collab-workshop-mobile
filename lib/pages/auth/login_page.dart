@@ -66,9 +66,11 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Text(
           _errorMessage,
-          style: TextStyle(
-            color: Colors.red,
-            fontSize: 14.0,
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              fontSize: 14.0,
+              color: Colors.red,
+            ),
           ),
         ),
       );
@@ -97,6 +99,13 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  labelStyle: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -113,6 +122,13 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  labelStyle: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(

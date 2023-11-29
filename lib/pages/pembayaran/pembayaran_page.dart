@@ -7,6 +7,7 @@ import 'package:jual_buku/models/buku_model.dart';
 import 'package:jual_buku/pages/histori-transaksi/histori_page.dart';
 import 'package:jual_buku/services/currency_format.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class PembayaranPage extends StatefulWidget {
   final Buku buku;
@@ -52,8 +53,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF177DFF),
-        title: Text('Pembayaran',
-            style: GoogleFonts.poppins()), // Menggunakan Google Fonts
+        title: Text('Pembayaran', style: GoogleFonts.poppins()),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +75,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
           ),
           Divider(),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -158,15 +158,29 @@ class _PembayaranPageState extends State<PembayaranPage> {
           .then((data) => {
                 if (data.statusCode == 200)
                   {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HistoriTransaksiPage()),
-                    )
+                    // Tampilkan dialog awesome success
+                    showSuccessDialog()
                   }
                 else
                   {print(data.body)}
               });
     }
+  }
+
+  void showSuccessDialog() {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.success,
+      animType: AnimType.bottomSlide,
+      title: 'Pembayaran Berhasil',
+      desc: 'Pembayaran Anda telah berhasil diproses.',
+      btnOkOnPress: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HistoriTransaksiPage()),
+        );
+      },
+      width: MediaQuery.of(context).size.width * 0.7,
+    )..show();
   }
 }
