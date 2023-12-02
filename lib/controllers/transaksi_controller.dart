@@ -54,6 +54,23 @@ class TransactionController {
     return response;
   }
 
+  Future<http.Response> uploadBukti(String bukti, int bukuId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    final url = '$baseUrl/pesanan/upload-bukti';
+
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.headers['Authorization'] = 'Bearer $token';
+
+    request.fields['bukti'] = bukti;
+    request.fields['buku_id'] = bukuId.toString();
+
+    var response = await request.send();
+
+    return http.Response.fromStream(response);
+  }
+
   Future<void> deleteTransaction(int idPesanan) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');

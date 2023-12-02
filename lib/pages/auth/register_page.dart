@@ -170,9 +170,13 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               _buildErrorMessage(),
               SizedBox(height: 24.0),
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: _register,
-                child: Text(
+                icon: Icon(
+                  Icons.person_add,
+                  color: Colors.white,
+                ),
+                label: Text(
                   'Register',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(

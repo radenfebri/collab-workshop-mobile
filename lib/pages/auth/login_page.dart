@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jual_buku/controllers/auth_controller.dart';
 import 'package:jual_buku/models/user_model.dart';
 import 'package:jual_buku/pages/auth/register_page.dart';
+import 'package:jual_buku/pages/auth/reset-password_page.dart';
 import 'package:jual_buku/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,6 +34,13 @@ class _LoginPageState extends State<LoginPage> {
         _errorMessage = e.toString();
       });
     }
+  }
+
+  void _goToResetPasswordPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResetPasswordPage()),
+    );
   }
 
   void _showSuccessDialog(BuildContext context, UserModel user) {
@@ -143,9 +151,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               _buildErrorMessage(),
               SizedBox(height: 24.0),
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: _login,
-                child: Text(
+                icon: Icon(
+                  Icons.login,
+                  color: Colors.white,
+                ),
+                label: Text(
                   'Login',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
@@ -171,6 +183,18 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: _goToRegisterPage,
                 child: Text(
                   'Belum punya akun? Daftar disini',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      color: Color(0xFF177DFF),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 8.0),
+              TextButton(
+                onPressed: _goToResetPasswordPage,
+                child: Text(
+                  'Lupa password? Reset disini',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: Color(0xFF177DFF),

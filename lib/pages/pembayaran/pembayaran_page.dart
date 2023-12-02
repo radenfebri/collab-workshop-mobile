@@ -170,10 +170,10 @@ class _PembayaranPageState extends State<PembayaranPage> {
   void showSuccessDialog() {
     AwesomeDialog(
       context: context,
-      dialogType: DialogType.success,
+      dialogType: DialogType.info,
       animType: AnimType.bottomSlide,
-      title: 'Pembayaran Berhasil',
-      desc: 'Pembayaran Anda telah berhasil diproses.',
+      title: 'Pesanan Diproses',
+      desc: 'Pesanan Anda telah berhasil diproses.',
       btnOkOnPress: () {
         Navigator.push(
           context,

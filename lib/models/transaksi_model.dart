@@ -9,6 +9,7 @@ class Transaksi {
   final String trackingNo;
   final String totalPrice;
   final String noRek;
+  final String? bukti;
   final String atasNama;
 
   Transaksi({
@@ -22,6 +23,7 @@ class Transaksi {
     required this.totalPrice,
     required this.namaBuku,
     required this.noRek,
+    required this.bukti,
     required this.atasNama,
   });
 
@@ -37,6 +39,7 @@ class Transaksi {
       noRek: json['no_rek'],
       atasNama: json['atas_nama'],
       trackingNo: json['tracking_no'],
+      bukti: json['bukti'],
       totalPrice: json['total_price'].toString(),
     );
   }

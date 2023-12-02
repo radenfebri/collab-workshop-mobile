@@ -67,4 +67,26 @@ class AuthController {
       throw (errorMessage);
     }
   }
+
+  Future<void> resetPassword({required String email}) async {
+    var headers = {'Content-Type': 'application/json'};
+    var body = jsonEncode({
+      'email': email,
+    });
+
+    var response = await http.post(
+      Uri.parse('$url/reset-password'),
+      headers: headers,
+      body: body,
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Reset password berhasil, lakukan tindakan yang diperlukan
+    } else {
+      var error = jsonDecode(response.body);
+      var errorMessage = error['message'];
+      print("$errorMessage");
+      throw ("$errorMessage");
+    }
+  }
 }

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/transaksi_model.dart';
 import 'package:jual_buku/services/currency_format.dart';
@@ -14,6 +17,8 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
   TransactionController _transactionController = TransactionController();
   List<Transaksi> _transactions = [];
   int decimalDigit = 0;
+  File? _buktiBayar;
+  // Transaksi? _selectedTransaksi;
 
   @override
   void initState() {
@@ -39,7 +44,11 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
       return 'Diproses';
     } else if (status == 1) {
       return 'Berhasil';
-    } else {
+    } else if (status == 2) {
+      return 'Review';
+    } else if (status == 3) {
+      return 'Tolak';
+    }else {
       return 'Status tidak diketahui';
     }
   }
@@ -49,30 +58,68 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
       return Colors.red;
     } else if (status == 1) {
       return Colors.green;
-    } else {
-      return Colors.black;
+    } else if (status == 2) {
+      return Colors.blue;
+    } else if (status == 3) {
+      return Colors.grey;
+    }  else {
+      return Colors.red;
     }
   }
 
+Future<void> _pickImageFromGallery() async {
+  final picker = ImagePicker();
+  final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+  if (pickedImage != null) {
+    setState(() {
+      _buktiBayar = File(pickedImage.path);
+    });
+  }
+}
+
+  // Future<void> _uploadBuktiBayar() async {
+  //   if (_selectedTransaksi != null && _buktiBayar != null) {
+  //     try {
+  //       String bukti = _buktiBayar!.path;
+  //       int bukuId = _selectedTransaksi!.id;
+
+  //       await _transactionController.uploadBukti(bukti, bukuId);
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text('Bukti bayar berhasil diunggah')),
+  //       );
+  //     } catch (error) {
+  //       print('Terjadi kesalahan saat mengunggah bukti bayar: $error');
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //             content: Text('Terjadi kesalahan saat mengunggah bukti bayar')),
+  //       );
+  //     }
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Pilih gambar bukti bayar terlebih dahulu')),
+  //     );
+  //   }
+  // }
+
   void _showHistoriDetail(int index) {
     Transaksi transaksi = _transactions[index];
-    // Tampilkan detail histori transaksi atau lakukan tindakan lain
-    // sesuai dengan kebutuhan Anda
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Detail Histori Transaksi', style: GoogleFonts.poppins()),
           content: Container(
-            width: MediaQuery.of(context).size.width *
-                0.8, // Lebar dialog menjadi 80% dari lebar layar
+            width: MediaQuery.of(context).size.width * 0.8,
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Nomor Tracking: ${transaksi.trackingNo}',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'Nomor Tracking: ${transaksi.trackingNo}',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text('Total Harga:'),
                 Row(
                   children: [
@@ -127,6 +174,29 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                   ),
                 ),
                 Text('Transfer harus sesuai dengan nominal yang tertera.'),
+                SizedBox(height: 16),
+                Text(
+                  'Bukti Bayar:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                // if (_buktiBayar != null)
+                //   Image.file(
+                //     _buktiBayar!,
+                //     height: 200,
+                //     fit: BoxFit.cover,
+                //   ),
+                SizedBox(height: 8),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.upload),
+                  label:
+                      Text('Upload Bukti Bayar', style: GoogleFonts.poppins()),
+                  onPressed: () {
+                    _pickImageFromGallery;
+                  },
+                )
               ],
             ),
           ),
@@ -134,10 +204,10 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
               horizontal: 24.0,
               vertical: 20.0), // Mengatur padding konten dialog
           actions: [
-            if (transaksi.status ==
-                0) // Hanya tampilkan tombol jika status "Diproses"
-              ElevatedButton(
-                child: Text('Batalkan', style: GoogleFonts.poppins()),
+            if (transaksi.status == 0)
+              ElevatedButton.icon(
+                icon: Icon(Icons.cancel),
+                label: Text('Batalkan', style: GoogleFonts.poppins()),
                 onPressed: () async {
                   Navigator.pop(context);
                   await _transactionController.deleteTransaction(transaksi.id);
@@ -148,8 +218,9 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                   primary: Colors.red,
                 ),
               ),
-            ElevatedButton(
-              child: Text('Tutup', style: GoogleFonts.poppins()),
+            ElevatedButton.icon(
+              icon: Icon(Icons.close),
+              label: Text('Tutup', style: GoogleFonts.poppins()),
               onPressed: () {
                 Navigator.of(context).pop();
               },
