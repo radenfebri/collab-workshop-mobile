@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:jual_buku/controllers/transaksi_controller.dart';
 import 'package:jual_buku/models/transaksi_model.dart';
+import 'package:jual_buku/pages/histori-transaksi/upload_bukti.dart';
 import 'package:jual_buku/services/currency_format.dart';
 
 class HistoriTransaksiPage extends StatefulWidget {
@@ -17,7 +15,6 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
   TransactionController _transactionController = TransactionController();
   List<Transaksi> _transactions = [];
   int decimalDigit = 0;
-  File? _buktiBayar;
   // Transaksi? _selectedTransaksi;
 
   @override
@@ -66,41 +63,6 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
       return Colors.red;
     }
   }
-
-Future<void> _pickImageFromGallery() async {
-  final picker = ImagePicker();
-  final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-  if (pickedImage != null) {
-    setState(() {
-      _buktiBayar = File(pickedImage.path);
-    });
-  }
-}
-
-  // Future<void> _uploadBuktiBayar() async {
-  //   if (_selectedTransaksi != null && _buktiBayar != null) {
-  //     try {
-  //       String bukti = _buktiBayar!.path;
-  //       int bukuId = _selectedTransaksi!.id;
-
-  //       await _transactionController.uploadBukti(bukti, bukuId);
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text('Bukti bayar berhasil diunggah')),
-  //       );
-  //     } catch (error) {
-  //       print('Terjadi kesalahan saat mengunggah bukti bayar: $error');
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //             content: Text('Terjadi kesalahan saat mengunggah bukti bayar')),
-  //       );
-  //     }
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Pilih gambar bukti bayar terlebih dahulu')),
-  //     );
-  //   }
-  // }
 
   void _showHistoriDetail(int index) {
     Transaksi transaksi = _transactions[index];
@@ -194,7 +156,14 @@ Future<void> _pickImageFromGallery() async {
                   label:
                       Text('Upload Bukti Bayar', style: GoogleFonts.poppins()),
                   onPressed: () {
-                    _pickImageFromGallery;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UploadBuktiPage(
+                          transaksi: transaksi,
+                        ),
+                      ),
+                    );
                   },
                 )
               ],
@@ -221,8 +190,10 @@ Future<void> _pickImageFromGallery() async {
             ElevatedButton.icon(
               icon: Icon(Icons.close),
               label: Text('Tutup', style: GoogleFonts.poppins()),
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context).pop();
+                await _fetchTransactions();
+                setState(() {});
               },
             ),
           ],
