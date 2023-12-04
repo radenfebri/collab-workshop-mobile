@@ -144,12 +144,6 @@ class _HistoriTransaksiPageState extends State<HistoriTransaksiPage> {
                   ),
                 ),
                 SizedBox(height: 8),
-                // if (_buktiBayar != null)
-                //   Image.file(
-                //     _buktiBayar!,
-                //     height: 200,
-                //     fit: BoxFit.cover,
-                //   ),
                 SizedBox(height: 8),
                 ElevatedButton.icon(
                   icon: Icon(Icons.upload),
